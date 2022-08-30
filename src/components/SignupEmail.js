@@ -50,8 +50,9 @@ const SignupEmail = () => {
       console.log(result);
       if (result.data.status === "success") {
         alert("signup is successfull!");
+        // alert(result.cookie);
         window.setTimeout(() => {
-          // window.location.assign("/createPassword");
+          window.location.assign("/createPassword");
         });
       }
     } catch (err) {

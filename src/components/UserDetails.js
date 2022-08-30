@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import "./css/UserDetails.css";
-
+import axios from "axios";
 const UserDetails = () => {
   const [user, setUser] = useState({
     fname: "",
@@ -17,6 +17,23 @@ const UserDetails = () => {
       ...user,
       [name]: value,
     });
+  };
+  const userDetails = async () => {
+    try {
+      //
+      const { fname, lname, linkedInURL, city, state, country } = user;
+      const result = await axios({
+        method: "POST",
+        url: "http://localhost:8000/api/v1/users/userDetails",
+        data: { fname, lname, linkedInURL, city, state, country },
+      });
+      if (result.data.status === "success") {
+        alert("Your details are submitted!");
+      }
+    } catch (err) {
+      //
+      alert(err);
+    }
   };
   return (
     <div className="wrapper">
@@ -77,7 +94,10 @@ const UserDetails = () => {
           required
           onChange={handleChange}
         />
-        <input className="input-items" type="submit" value="SUBMIT" required />
+        {/* <input className="input-items" type="submit" value="SUBMIT" required /> */}
+        <div className="btn" onClick={userDetails}>
+          SUBMIT
+        </div>
       </form>
     </div>
   );
